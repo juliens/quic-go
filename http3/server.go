@@ -44,6 +44,10 @@ func newConnError(code errorCode, err error) requestError {
 	return requestError{err: err, connErr: code}
 }
 
+func init() {
+	utils.DefaultLogger.SetLogLevel(utils.LogLevelDebug)
+}
+
 // Server is a HTTP2 server listening for QUIC connections.
 type Server struct {
 	*http.Server
