@@ -21,11 +21,12 @@ const (
 	VersionTLS      VersionNumber = 0x51474fff
 	VersionWhatever VersionNumber = 1 // for when the version doesn't matter
 	VersionUnknown  VersionNumber = math.MaxUint32
+	Version23       VersionNumber = 0xff000017
 )
 
 // SupportedVersions lists the versions that the server supports
 // must be in sorted descending order
-var SupportedVersions = []VersionNumber{VersionTLS}
+var SupportedVersions = []VersionNumber{Version23}
 
 // IsValidVersion says if the version is known to quic-go
 func IsValidVersion(v VersionNumber) bool {
@@ -40,6 +41,8 @@ func (vn VersionNumber) String() string {
 		return "unknown"
 	case VersionTLS:
 		return "TLS dev version (WIP)"
+	case Version23:
+		return "QUIC Draft 23 (WIP)"
 	default:
 		if vn.isGQUIC() {
 			return fmt.Sprintf("gQUIC %d", vn.toGQUICVersion())
